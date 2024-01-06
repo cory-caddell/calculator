@@ -1,8 +1,13 @@
-let num1;
-let operator;
-let num2;
-
 createCalcButtons();
+getUserInput();
+
+// let num1 = getUserInput();
+// let operator = getUserInput();
+// let num2 = getUserInput();
+
+
+
+
 
 
 //////////// arithmetic functions ///////////////
@@ -51,11 +56,21 @@ function createCalcButtons() {
         container.appendChild(digits);
     };
 
-    const operands = ['/', '*', '-', '=', '<-']; 
+    const operands = ['/', '*', '-', '.', '=', '<-']; 
 
     operands.forEach((item) => {
         const operand = document.createElement('button');
         operand.textContent = item;
         container.appendChild(operand);
     });
+}
+
+function getUserInput() {
+    const buttons = document.querySelectorAll('button');
+    buttons.forEach((button) => {
+        button.addEventListener('click', () => {
+            console.log(button.textContent);
+        })
+    })
+
 }
