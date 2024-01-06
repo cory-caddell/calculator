@@ -1,13 +1,14 @@
-createCalcButtons();
-getUserInput();
+let num1;
+let operator;
+let num2;
+let result;
 
-// let num1 = getUserInput();
-// let operator = getUserInput();
-// let num2 = getUserInput();
-
-
-
-
+const buttons = document.querySelectorAll('button');
+buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+        num1 = parseInt(button.textContent);
+    })
+});
 
 
 //////////// arithmetic functions ///////////////
@@ -46,31 +47,3 @@ function operate(num1, operator, num2) {
 }
 
 /////////// calculator div functions /////////////////
-
-function createCalcButtons() {
-    const container = document.querySelector('.calc-container');
-
-    for (let i = 0; i < 10; i++) {
-        const digits = document.createElement('button');
-        digits.textContent = i;
-        container.appendChild(digits);
-    };
-
-    const operands = ['/', '*', '-', '.', '=', '<-']; 
-
-    operands.forEach((item) => {
-        const operand = document.createElement('button');
-        operand.textContent = item;
-        container.appendChild(operand);
-    });
-}
-
-function getUserInput() {
-    const buttons = document.querySelectorAll('button');
-    buttons.forEach((button) => {
-        button.addEventListener('click', () => {
-            console.log(button.textContent);
-        })
-    })
-
-}
