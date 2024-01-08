@@ -19,8 +19,7 @@ button {
 
 #display {
     display: flex;
-    width: 150px;
-    height: auto;
-    border-style: solid;
     margin: 0;
+    padding-right: 10px;
+    align-items: center;
 }

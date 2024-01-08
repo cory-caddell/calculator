@@ -1,12 +1,8 @@
-let num1;
-let operator;
-let num2;
-let result;
 
 const buttons = document.querySelectorAll('button');
 buttons.forEach((button) => {
     button.addEventListener('click', () => {
-        num1 = parseInt(button.textContent);
+        displayUserSelection(button.textContent);
     })
 });
 
@@ -47,3 +43,38 @@ function operate(num1, operator, num2) {
 }
 
 /////////// calculator div functions /////////////////
+function displayUserSelection(text) {
+    const display = document.querySelector('p');
+    
+    switch(text) {
+        case '+':
+        case '-':
+        case '*':
+        case '/':
+            display.textContent += " " + text + " ";
+            break;
+        case 'AC':
+            display.textContent = "";
+            break;
+        case '=':
+            display.textContent = getSolution(getUserSelection());
+            break;
+        default:
+            display.textContent += text;
+    }
+}
+
+function getUserSelection() {
+    const text = document.querySelector('p');
+    return textArr = text.textContent.split(' ');
+}
+
+function getSolution (arr){
+
+    let solution;
+    while (arr.length > 1) {
+        solution = operate(parseInt(arr[0]), arr[1], parseInt(arr[2]));
+        arr.splice(0, 3, solution);
+    }
+    return solution;
+}
