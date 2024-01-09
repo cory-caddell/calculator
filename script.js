@@ -5,8 +5,7 @@ buttons.forEach((button) => {
     button.addEventListener('click', () => {
         displayUserSelection(button.textContent, reset)
         
-        reset = (button.textContent === '=') ? true : false;
-
+        reset = (button.textContent === '=') ? true : false;    //display reset upon next calc input
     })
 });
 
@@ -64,9 +63,6 @@ function displayUserSelection(text, reset) {
         case 'AC':
             displayNode.textContent = "";
             break;
-        case '=':
-            displayNode.textContent = 'ERROR';
-            break;
         default:
             displayNode.textContent += text;
 
@@ -85,6 +81,6 @@ function getUserSelection(input) {
 function getSolution (arr){
     const solution = operate(parseInt(arr[0]), arr[1], parseInt(arr[2]));
 
-    return solution === NaN ? 'ERROR' : solution;
+    return (isNaN(solution) || solution === Infinity) ? 'ERROR' : solution;
   
 }
