@@ -1,8 +1,12 @@
+let reset = false;
 
 const buttons = document.querySelectorAll('button');
 buttons.forEach((button) => {
     button.addEventListener('click', () => {
-        displayUserSelection(button.textContent);
+        displayUserSelection(button.textContent, reset)
+        
+        reset = (button.textContent === '=') ? true : false;
+
     })
 });
 
@@ -43,38 +47,44 @@ function operate(num1, operator, num2) {
 }
 
 /////////// calculator div functions /////////////////
-function displayUserSelection(text) {
-    const display = document.querySelector('p');
-    
+function displayUserSelection(text, reset) {
+    const displayNode = document.querySelector('p');
+
+    if(reset) {
+        displayNode.textContent = '';
+    }
+
     switch(text) {
         case '+':
         case '-':
         case '*':
         case '/':
-            display.textContent += " " + text + " ";
+            displayNode.textContent += ' ' + text + ' ';
             break;
         case 'AC':
-            display.textContent = "";
+            displayNode.textContent = "";
             break;
         case '=':
-            display.textContent = getSolution(getUserSelection());
+            displayNode.textContent = 'ERROR';
             break;
         default:
-            display.textContent += text;
+            displayNode.textContent += text;
+
+            if(getUserSelection().length == 3) {
+                displayNode.textContent = getSolution(getUserSelection());
+            }
     }
+
 }
 
-function getUserSelection() {
+function getUserSelection(input) {
     const text = document.querySelector('p');
     return textArr = text.textContent.split(' ');
 }
 
 function getSolution (arr){
+    const solution = operate(parseInt(arr[0]), arr[1], parseInt(arr[2]));
 
-    let solution;
-    while (arr.length > 1) {
-        solution = operate(parseInt(arr[0]), arr[1], parseInt(arr[2]));
-        arr.splice(0, 3, solution);
-    }
-    return solution;
+    return solution === NaN ? 'ERROR' : solution;
+  
 }
