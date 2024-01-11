@@ -5,7 +5,7 @@ buttons.forEach((button) => {
     button.addEventListener('click', () => {
         displayUserSelection(button.textContent, reset)
         
-        reset = (button.textContent === '=') ? true : false;    //display reset upon next calc input
+        reset = (button.textContent === '=' || button.textContent == 'ERROR') ? true : false;    //display reset upon next calc input
     })
 });
 
@@ -58,29 +58,52 @@ function displayUserSelection(text, reset) {
         case '-':
         case '*':
         case '/':
-            displayNode.textContent += ' ' + text + ' ';
+            let operator = ' ' + text + ' ';
+            displayNode.textContent += operator;
+            if(getUserSelection().length > 3) {
+                displayNode.textContent = getSolution(getUserSelection()) + operator;
+            }
+            break;
+        case 'DEL':
+            displayNode.textContent = deletePrevInput(displayNode);
             break;
         case 'AC':
             displayNode.textContent = "";
             break;
-        default:
+        case '=':
+            displayNode.textContent = getSolution(getUserSelection());
+            break;
+        default:      
             displayNode.textContent += text;
-
-            if(getUserSelection().length == 3) {
-                displayNode.textContent = getSolution(getUserSelection());
-            }
     }
-
 }
 
-function getUserSelection(input) {
+function getUserSelection() {
     const text = document.querySelector('p');
     return textArr = text.textContent.split(' ');
 }
 
 function getSolution (arr){
-    const solution = operate(parseInt(arr[0]), arr[1], parseInt(arr[2]));
+    let solution = (checkIfMultipleDecimals(arr[0]) || checkIfMultipleDecimals(arr[2])) ?
+                        NaN : operate(parseFloat(arr[0]), arr[1], parseFloat(arr[2]));
 
     return (isNaN(solution) || solution === Infinity) ? 'ERROR' : solution;
-  
+}
+
+function checkIfMultipleDecimals(str) {
+    let limit = 0;
+    for (let i = 0; i < str.length; i++) {
+        if(str[i] == '.') {
+            limit++;
+        };
+    }
+    return limit > 1 ? true : false;   
+}
+
+function deletePrevInput(displayNode) {
+    const input = displayNode.textContent;
+
+    return (input[input.length - 1] == ' ') ? 
+                input.slice(0, input.length - 2) : 
+                input.slice(0, input.length - 1);
 }
