@@ -5,7 +5,8 @@ buttons.forEach((button) => {
     button.addEventListener('click', () => {
         displayUserSelection(button.textContent, reset)
         
-        reset = (button.textContent === '=' || button.textContent == 'ERROR') ? true : false;    //display reset upon next calc input
+        const displayNode = document.querySelector('#display');
+        reset = (button.textContent === '=' || displayNode.textContent == 'ERROR') ? true : false;    //display reset upon next calc input
     })
 });
 
@@ -32,22 +33,18 @@ function operate(num1, operator, num2) {
     switch(operator) {
         case '+':
             return add(num1, num2);
-            break;
         case '-':
             return subtract(num1, num2);
-            break;
         case '*':
             return multiply(num1, num2);
-            break;
         case '/':
             return divide(num1, num2);
-            break;
     }
 }
 
 /////////// calculator div functions /////////////////
 function displayUserSelection(text, reset) {
-    const displayNode = document.querySelector('p');
+    const displayNode = document.querySelector('#display');
 
     if(reset) {
         displayNode.textContent = '';
@@ -75,19 +72,23 @@ function displayUserSelection(text, reset) {
             break;
         default:      
             displayNode.textContent += text;
+            if(displayNode.textContent.length > 12) {
+                displayNode.textContent = 'ERROR';
+            }
     }
+
 }
 
 function getUserSelection() {
-    const text = document.querySelector('p');
+    const text = document.querySelector('#display');
     return textArr = text.textContent.split(' ');
 }
 
 function getSolution (arr){
-    let solution = (checkIfMultipleDecimals(arr[0]) || checkIfMultipleDecimals(arr[2])) ?
-                        NaN : operate(parseFloat(arr[0]), arr[1], parseFloat(arr[2]));
-
-    return (isNaN(solution) || solution === Infinity) ? 'ERROR' : solution;
+    let solution = (checkIfMultipleDecimals(arr[0]) || checkIfMultipleDecimals(arr[2])) ? NaN : operate(parseFloat(arr[0]), arr[1], parseFloat(arr[2]));
+   
+    return (isNaN(solution) || solution === Infinity) ? 'ERROR' : 
+                Number.isInteger(solution) ? solution : solution.toFixed(2);
 }
 
 function checkIfMultipleDecimals(str) {
@@ -104,6 +105,6 @@ function deletePrevInput(displayNode) {
     const input = displayNode.textContent;
 
     return (input[input.length - 1] == ' ') ? 
-                input.slice(0, input.length - 2) : 
-                input.slice(0, input.length - 1);
+                input.slice(0, input.length - 2) :  // delete operator and white space
+                input.slice(0, input.length - 1);   // delete digit
 }

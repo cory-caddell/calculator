@@ -1,25 +1,85 @@
-.calc-container {
+
+
+body {
+    background-image: url('images/pexels-hristo-fidanov-1252890.jpg');
+    background-repeat: none;    
+    background-attachment: fixed;
+    background-size: 100% 100%;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
-    width: 400px;
-    height: 500px;
-    background-color: aquamarine;
+    justify-content: center;
+    align-items: center;
+    border-style: dashed;
+}
+
+h1 {
+    color: yellow;
+}
+
+.outer-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 375px;
+    height: 490px;
+    background-color: rgb(10, 110, 117);
+    border-style:ridge;
+    border-color: rgb(10, 110, 117);
+    border-radius: 7px;
+
+}
+
+.inner-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-right: 15px;
+    width: 315px;
+    height: 410px;
+    background-color: rgb(95, 168, 173);
+    border-style:ridge;
+    border-color: rgb(95, 168, 173);
+    border-radius: 7px;
+
 }
 
 .button-container {
     display: flex;
     justify-content: flex-end;
+    border-radius: 7px;
+
+}
+
+.display-container {
+    border-style: dotted;
+    width: 140px;
 }
 
 button {
     display: flex;
-    width: 50px;
-    height: 50px;
+    border-radius: 7px;
+    width: 75px;
+    height: 75px;
+    background-color: rgb(218, 229, 230);
+    font-size: large;
 }
 
 #display {
-    display: flex;
-    margin: 0;
     padding-right: 10px;
-    align-items: center;
+    font-size: 20px;
+}
+
+#logo {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 5px;
+    width: 315px;
+    height: 30px;
+}
+
+#logo p {
+    display: flex;
+    color: yellow;
 }
