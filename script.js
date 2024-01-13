@@ -1,12 +1,21 @@
+
+const displayNode = document.querySelector('#display');
 let reset = false;
 
 const buttons = document.querySelectorAll('button');
 buttons.forEach((button) => {
     button.addEventListener('click', () => {
-        displayUserSelection(button.textContent, reset)
-        
-        const displayNode = document.querySelector('#display');
+        displayUserSelection(button.textContent, reset);
         reset = (button.textContent === '=' || displayNode.textContent == 'ERROR') ? true : false;    //display reset upon next calc input
+    })
+});
+
+const container = document.querySelector('.outer-container');
+container.addEventListener('click', () => {
+
+    document.addEventListener('keypress', (e) => {
+        displayUserSelection(e.key, reset);
+        reset = (e.key === '=' || displayNode.textContent == 'ERROR') ? true : false;    //display reset upon next calc input
     })
 });
 
