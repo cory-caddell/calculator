@@ -7,18 +7,13 @@ buttons.forEach((button) => {
     button.addEventListener('click', () => {
         displayUserSelection(button.textContent, reset);
         reset = (button.textContent === '=' || displayNode.textContent == 'ERROR') ? true : false;    //display reset upon next calc input
-    })
+    });
 });
 
-const container = document.querySelector('.outer-container');
-container.addEventListener('click', () => {
-
-    document.addEventListener('keypress', (e) => {
-        displayUserSelection(e.key, reset);
-        reset = (e.key === '=' || displayNode.textContent == 'ERROR') ? true : false;    //display reset upon next calc input
-    })
+document.addEventListener('keypress', (e) => {
+    displayUserSelection(e.key.toString(), reset);
+    reset = (e.key.toString() == 'Enter') || (displayNode.textContent == 'ERROR') ? true : false;    //display reset upon next calc input
 });
-
 
 //////////// arithmetic functions ///////////////
 function add(a, b) {
@@ -52,7 +47,7 @@ function operate(num1, operator, num2) {
 }
 
 /////////// calculator div functions /////////////////
-function displayUserSelection(text, reset) {
+function displayUserSelection(text, reset) {     
     const displayNode = document.querySelector('#display');
 
     if(reset) {
@@ -70,12 +65,14 @@ function displayUserSelection(text, reset) {
                 displayNode.textContent = getSolution(getUserSelection()) + operator;
             }
             break;
+        case 'Delete':
         case 'DEL':
             displayNode.textContent = deletePrevInput(displayNode);
             break;
         case 'AC':
             displayNode.textContent = "";
             break;
+        case 'Enter':
         case '=':
             displayNode.textContent = getSolution(getUserSelection());
             break;
@@ -85,7 +82,6 @@ function displayUserSelection(text, reset) {
                 displayNode.textContent = 'ERROR';
             }
     }
-
 }
 
 function getUserSelection() {
