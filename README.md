@@ -1,5 +1,5 @@
 # calculator
-##On-screen calculator using html, css, and javascript
+## On-screen calculator using html, css, and javascript
 
 get user input from screen or keyboard
 
